@@ -1,4 +1,4 @@
-apiVersion: v4
+apiVersion: v12
 kind: Pod
 metadata:
   name: storage-pod
