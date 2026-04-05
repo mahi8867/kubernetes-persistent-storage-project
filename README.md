@@ -1,39 +1,38 @@
 # Kubernetes Persistent Storage Project
 
-This project demonstrates how to implement Persistent Storage in Kubernetes using Persistent Volume (PV) and Persistent Volume Claim (PVC).
-
-## Components
-
+## 📌 Overview
+This project demonstrates how to implement persistent storage in Kubernetes using:
 - Persistent Volume (PV)
 - Persistent Volume Claim (PVC)
-- Pod using persistent storage
+- Pod integration
 
-## Steps
+## ⚙️ Technologies Used
+- Kubernetes
+- YAML
+- Docker
 
-1. Create Persistent Volume
-2. Create Persistent Volume Claim
-3. Deploy Pod using PVC
-4. Store data inside the Pod
-5. Delete and recreate the Pod to verify persistence
+## 📁 Project Files
+- pod.yaml → Pod configuration
+- pv.yaml → Persistent Volume
+- pvc.yaml → Persistent Volume Claim
 
-## Files
+## 🚀 Steps to Execute
 
-- pv.yaml
-- pvc.yaml
-- pod.yaml
-
-## Commands
-
-Create PV
+### 1. Create Persistent Volume
 kubectl apply -f pv.yaml
 
-Create PVC
+### 2. Create Persistent Volume Claim
 kubectl apply -f pvc.yaml
 
-Deploy Pod
+### 3. Deploy Pod
 kubectl apply -f pod.yaml
 
-Check resources
+### 4. Verify Resources
+kubectl get pods
 kubectl get pv
 kubectl get pvc
-kubectl get pods
+
+## 🎯 Key Learning
+- Understanding Kubernetes storage
+- PV & PVC configuration
+- Real-time DevOps implementation
