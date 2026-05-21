@@ -1,38 +1,46 @@
-# Kubernetes Persistent Storage Project
-
-## 📌 Overview
-This project demonstrates how to implement persistent storage in Kubernetes using:
-- Persistent Volume (PV)
-- Persistent Volume Claim (PVC)
-- Pod integration
-
-## ⚙️ Technologies Used
-- Kubernetes
-- YAML
-- Docker
-
-## 📁 Project Files
-- pod.yaml → Pod configuration
-- pv.yaml → Persistent Volume
-- pvc.yaml → Persistent Volume Claim
-
-## 🚀 Steps to Execute
-
-### 1. Create Persistent Volume
+kubernetes-persistent-storage-project/
+│
+├── pv.yaml       # Persistent Volume — defines the actual storage
+├── pvc.yaml      # Persistent Volume Claim — Pod's request for storage
+└── pod.yaml      # Pod — mounts the PVC and uses the storage
++---------------------------+
+|        Kubernetes         |
+|                           |
+|  +---------------------+  |
+|  |        Pod          |  |
+|  |  (Mounts PVC)       |  |
+|  +--------+------------+  |
+|           |               |
+|  +--------v------------+  |
+|  |  PVC (Volume Claim) |  |
+|  +--------+------------+  |
+|           |               |
+|  +--------v------------+  |
+|  |  PV (Actual Storage)|  |
+|  |  (hostPath / NFS)   |  |
+|  +---------------------+  |
++---------------------------+
 kubectl apply -f pv.yaml
-
-### 2. Create Persistent Volume Claim
 kubectl apply -f pvc.yaml
-
-### 3. Deploy Pod
-kubectl apply -f pod.yaml
-
-### 4. Verify Resources
-kubectl get pods
+# Check PV status (should be Bound)
 kubectl get pv
+
+# Check PVC status (should be Bound)
 kubectl get pvc
 
-## 🎯 Key Learning
-- Understanding Kubernetes storage
-- PV & PVC configuration
-- Real-time DevOps implementation
+# Check Pod status (should be Running)
+kubectl get pods
+# Step 1: Exec into the Pod and write data
+kubectl exec -it <pod-name> -- /bin/sh
+echo "Hello from Kubernetes!" > /data/test.txt
+exit
+
+# Step 2: Delete the Pod
+kubectl delete pod <pod-name>
+
+# Step 3: Recreate the Pod
+kubectl apply -f pod.yaml
+
+# Step 4: Check if data still exists
+kubectl exec -it <pod-name> -- cat /data/test.txt
+# Output: Hello from Kubernetes!  ✅ Data persisted!
